@@ -18,7 +18,9 @@ for link in soup_search.find_all('a'):
 	tmp_news_links.append(link.get('href'))
 	#print links
 
-news_links = ['http://www.nydailynews.com{0}'.format(s) for s in tmp_news_links]
+appended_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_news_links]
+# Remove page 1 link from search results
+news_links = [x for x in appended_links if not '&page=1' in x]
 
 
 result_file = open(os.path.abspath('BXVR.csv'), 'wb')
