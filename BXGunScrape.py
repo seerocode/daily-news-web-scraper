@@ -5,6 +5,8 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from oauth2client.service_account import ServiceAccountCredentials
+from pprint import pprint
+
 
 news_search_url = 'http://www.nydailynews.com/search-results/search-results-7.113?q=bronx%2C+gun&sortOrder=desc&selecturl=site&pdate=2016-01-01&edate=2016-12-31&tfq=articles'
 get_page = requests.get(news_search_url)
@@ -19,9 +21,23 @@ for link in soup_search.find_all('a'):
 	#print links
 
 appended_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_news_links]
+#add pagination to new array
+news_search_pagination = [x for x in appended_links if '&page=' in x]
 # Remove page 1 link from search results
-news_links = [x for x in appended_links if not '&page=1' in x]
+news_links = [y for y in appended_links if not '&page=' in y]
 
+def remove_duplicates(news_search_pagination):
+    output = []
+    seen = set()
+    for value in news_search_pagination:
+        # If value has not been encountered yet,
+        # ... add it to both list and set.
+        if value not in seen:
+            output.append(value)
+            seen.add(value)
+    return output
+
+pagination_result = remove_duplicates(news_search_pagination)
 
 result_file = open(os.path.abspath('BXVR.csv'), 'wb')
 
