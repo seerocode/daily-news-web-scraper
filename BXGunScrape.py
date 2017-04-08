@@ -41,7 +41,7 @@ pagination_result_sf = [r.replace('bronx, gun', 'bronx%2C+gun') for r in paginat
 
 new_page_links = []
 
-### ADD RESULUST FROM MORE PAGES ###
+### ADD RESULUST FROM MORE PAGES ####
 for page in pagination_result_sf:
 	get_result = requests.get(page)
 	paged_results = BeautifulSoup(get_result.content, 'html.parser')
