@@ -10,17 +10,16 @@ from pprint import pprint
 news_search_url = 'http://www.nydailynews.com/search-results/search-results-7.113?q=bronx%2C+gun&sortOrder=desc&selecturl=site&pdate=2016-01-01&edate=2016-12-31&tfq=articles'
 tmp_article_links = []
 
-def scrape(news_search_url):
-	get_page = requests.get(news_search_url)
-	page_results = BeautifulSoup(get_page.content, 'html.parser')
-	soup_search = page_results.find('div', class_='rtww')
-	# scrape for current page
-	for link in soup_search.find_all('a'):
-		tmp_news_links.append(link.get('href'))
-		#print links
+get_page = requests.get(news_search_url)
+page_results = BeautifulSoup(get_page.content, 'html.parser')
+soup_search = page_results.find('div', class_='rtww')
+# scrape for current page
+for link in soup_search.find_all('a'):
+	tmp_news_links.append(link.get('href'))
+	#print links
 	
-	#appends daily news url to links
-	article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
+#appends daily news url to links
+article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
 
 #add pagination to new array
 news_search_pagination = [x for x in article_links if '&page=' in x]
