@@ -23,7 +23,7 @@ def scrape(news_search_url):
 	article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
 
 #add pagination to new array
-#news_search_pagination = [x for x in appended_links if '&page=' in x]
+news_search_pagination = [x for x in article_links if '&page=' in x]
 
 
 #remove duplicates in 
