@@ -28,7 +28,7 @@ def tdn_scrape(url):
 			# Return alert to user
 			print ('Cannot proceed, please check HTML DOM')
 		response_delay = time.time() - t0 # be polite!
-    	time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
+		time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
 
 def main():
 	search_year = input("Please enter the year to search for: ")
