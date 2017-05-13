@@ -13,7 +13,7 @@ This web scraper is built in Python and being used to scrape article links from 
 
 Whatever has a :construction: emoji is what I am currently working on as of last commit. Also, some of these to-dos are extensions built on top of this scraper.
 
-- [X] Fix up style of code as it's all over the place (flesh out methods, remove redundant code, etc.)
+- [X] Fix up style of code as it's all over the place (flesh out methods, remove redundant code, etc.) EDIT: Completed 5/13/17
 - [X] Extend search to multiple pages (this is half working as pagination goes deeper than 13 pages but it only captures the first 13)
 EDIT: 4/27/17 - Completed
 - [ ] Build web interface to type in any search URL from Daily News and return a list of articles from that search
