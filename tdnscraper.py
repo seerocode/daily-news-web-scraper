@@ -19,10 +19,11 @@ def set_search_url(year):
 
 # Scrapes URL search page for links
 def tdn_scrape(url):
-	for page_num in range(1,48):
-		t0 = time.time()
+	for page_num in range(1,2):
+		#t0 = time.time()
 		headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
-		get_page = requests.get(url, headers=headers)
+		paged_url = url + str(page_num)
+		get_page = requests.get(paged_url, headers=headers)
 		page_results = BeautifulSoup(get_page.content, 'html.parser')
 		soup_search = page_results.find('div', class_='rtww')
 		if soup_search:
@@ -32,8 +33,8 @@ def tdn_scrape(url):
 		else:
 			# Return alert to user
 			print ('Cannot proceed, please check HTML DOM')
-		response_delay = time.time() - t0 # be polite!
-		time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
+		#response_delay = time.time() - t0 # be polite!
+		#time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
 
 search_year = input("Please enter the year to search for: ")
 url = set_search_url(search_year)
@@ -42,11 +43,11 @@ tdn_scrape(url)
 
 # Prepends daily news url to links
 article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
-#print article_links
+#print (article_links)
 
 # Remove paginated links
 news_links = [y for y in article_links if not '&page=' in y]
-#print news_links
+#print (news_links)
 
 # Passes links into newspaper api to create dict of titles, keywords, and urls
 def newspaper_api_dict():
@@ -66,7 +67,7 @@ def newspaper_api_dict():
 			print ('we will continue after this short error')
 			continue
 
-	#print news_api_links
+	#print (news_api_links)
 
 newspaper_api_dict()
 
