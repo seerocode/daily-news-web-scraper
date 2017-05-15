@@ -19,7 +19,7 @@ def set_search_url(year):
 
 # Scrapes URL search page for links
 def tdn_scrape(url):
-	for page_num in range(1,2):
+	for page_num in range(1,48):
 		#t0 = time.time()
 		headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
 		paged_url = url + str(page_num)
