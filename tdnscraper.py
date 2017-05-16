@@ -18,7 +18,7 @@ def set_search_url(year):
 		      'desc&pdate=' + str(year) + '-01-01&edate=' + str(year) + '-12-31&tfq=articles&afq=&page=')
 	return tdnews_url
 
-# Scrapes URL search page for links
+# Scrapes URL search page from 1 to 48 for links
 def tdn_scrape(url):
 	for page_num in range(1,48):
 		#t0 = time.time()
