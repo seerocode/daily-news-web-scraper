@@ -12,9 +12,31 @@ tmp_article_links = []
 news_api_links = []
 tmp_article_details = {}
 
-# Sets the year we are searching for in the url
-def set_search_url(year):
-	tdnews_url = ('http://www.nydailynews.com/search-results/search-results-7.113?q=bronx,%20gun&selecturl=site&sortOrder='
+def set_search_year():
+	while True:
+		search_year = input("Please enter the year to search for: ")
+		if len(search_year) >= 4:
+			break
+		print("Please enter a valid four-digit year: ")
+	return search_year
+
+def set_search_terms():
+	while True:
+		accept_input = str(input("Please enter search term(s) separated by a comma: "))
+		if not accept_input:
+			print ("Sorry, I didn't understand that. " + 
+			"Please enter search term(s) separated by a comma: ")
+			continue
+		else:
+			break
+	strip_input = ''.join(accept_input.split()) # Remove tabs, lines, whitespaces
+	search_terms = strip_input.replace("," , ",+") # Replace commas
+	#print (format_input)
+	return search_terms
+
+# Sets the search terms and year we are searching for in the url
+def set_search_url(terms, year):
+	tdnews_url = ('http://www.nydailynews.com/search-results/search-results-7.113?q=' + terms + '&selecturl=site&sortOrder='
 		      'desc&pdate=' + str(year) + '-01-01&edate=' + str(year) + '-12-31&tfq=articles&afq=&page=')
 	return tdnews_url
 
@@ -73,8 +95,9 @@ def write_to_file():
 
 #
 def main():
-	search_year = input("Please enter the year to search for: ")
-	url = set_search_url(search_year)
+	url = set_search_url(set_search_terms(),set_search_year())
+	print (url)
+
 	tdn_scrape(url)
 	#print tmp_article_links
 
