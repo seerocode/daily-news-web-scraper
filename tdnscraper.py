@@ -20,7 +20,7 @@ def set_search_url(year):
 
 # Scrapes URL search page from 1 to 48 for links
 def tdn_scrape(url):
-	page_range = int(input('Enter a page number for page search limit:'))
+	page_range = int(input('Enter a number for page search limit:'))
 	for page_num in range(1,page_range):
 		t0 = time.time()
 		headers = {'user-agent': 
