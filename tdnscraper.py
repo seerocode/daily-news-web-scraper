@@ -20,8 +20,9 @@ def set_search_url(year):
 
 # Scrapes URL search page from 1 to 48 for links
 def tdn_scrape(url):
-	for page_num in range(1,48):
-		#t0 = time.time()
+	page_range = int(input('Enter a page number for page search limit:'))
+	for page_num in range(1,page_range):
+		t0 = time.time()
 		headers = {'user-agent': 
 			   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) '
 			   	'Chrome/57.0.2987.133 Safari/537.36'}
@@ -36,24 +37,11 @@ def tdn_scrape(url):
 		else:
 			# Return alert to user
 			print ('Cannot proceed, please check HTML DOM')
-		#response_delay = time.time() - t0 # be polite!
-		#time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
-
-search_year = input("Please enter the year to search for: ")
-url = set_search_url(search_year)
-tdn_scrape(url)
-#print tmp_article_links
-
-# Prepends daily news url to links
-article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
-#print (article_links)
-
-# Remove paginated links
-news_links = [y for y in article_links if not '&page=' in y]
-#print (news_links)
+		response_delay = time.time() - t0 # be polite!
+		time.sleep(10*response_delay)  # wait 10x longer than it took site to respond
 
 # Passes links into newspaper api to create dict of titles, keywords, and urls
-def newspaper_api_dict():
+def newspaper_api_dict(news_links):
 	for article_link in news_links:
 		article = Article(article_link)
 		try:
@@ -72,8 +60,6 @@ def newspaper_api_dict():
 
 	#print (news_api_links)
 
-newspaper_api_dict()
-
 # Writes dictionary to CSV file
 def write_to_file():
 	result_file = open(os.path.abspath('BXVR.csv'), 'w')
@@ -85,4 +71,21 @@ def write_to_file():
 		for value in news_api_links:
 				write_to_file.writerow(value)
 
-write_to_file()
+def main():
+	search_year = input("Please enter the year to search for: ")
+	url = set_search_url(search_year)
+	tdn_scrape(url)
+	#print tmp_article_links
+
+	# Prepends daily news url to links
+	article_links = ['http://www.nydailynews.com{0}'.format(l) for l in tmp_article_links]
+	#print (article_links)
+
+	# Remove paginated links
+	news_links = [y for y in article_links if not '&page=' in y]
+	#print (news_links)
+
+	newspaper_api_dict(news_links)
+	write_to_file()
+
+main()
