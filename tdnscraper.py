@@ -71,6 +71,7 @@ def write_to_file():
 		for value in news_api_links:
 				write_to_file.writerow(value)
 
+#
 def main():
 	search_year = input("Please enter the year to search for: ")
 	url = set_search_url(search_year)
