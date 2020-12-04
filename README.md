@@ -1,5 +1,5 @@
 # daily-news-web-scraper
-My first web scraper (using Python 3, please). Very basic version. WIP as of 4/6/2017
+My first web scraper (using Python 3, please). 
 
 ## Use
 
